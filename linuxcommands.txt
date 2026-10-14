@@ -1,1 +1,47 @@
 “Learning Linux Commands with GitBash.”
+
+1. Configuration & IAM (Identity & Access Management)
+
+Used for setting up environments, verifying identities, and auditing security configurations.
+• Configure credentials: aws configure
+• List all configured profiles: aws configure list-profiles
+• Get current user/role identity: aws sts get-caller-identity
+• List all IAM users: aws iam list-users --output table
+• Attach a policy to a user: aws iam attach-user-policy --user-name <name> --policy-arn <arn>
+
+
+2. Computing & Auto Scaling (EC2, ASG)
+
+Crucial for checking server status, managing environments, and handling virtual machines.
+• List running instances with filters: aws ec2 describe-instances --filters "Name=instance-state-name,Values=running"
+• Launch an EC2 instance: aws ec2 run-instances --image-id <ami-id> --instance-type <type> --key-name <key>
+• Stop / Start an instance: aws ec2 stop-instances --instance-ids <id> / aws ec2 start-instances --instance-ids <id>
+• Describe Auto Scaling Groups: aws autoscaling describe-auto-scaling-groups
+
+
+3. CI/CD & Infrastructure as Code (CloudFormation, ECR, ECS, EKS)
+
+The core ecosystem for deploying applications and managing containerized pipelines.
+• Deploy a CloudFormation infrastructure template: aws cloudformation deploy --template-file <file> --stack-name <name>
+• Authenticate Docker to an ECR registry: aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+• List ECS clusters: aws ecs list-clusters
+• Update kubeconfig for Kubernetes (EKS) access: aws eks update-kubeconfig --region <region> --name <cluster-name>
+
+
+
+4. Storage & Networking (S3, VPC)
+
+Essential for managing assets, configuration backups, and troubleshooting networking routes.
+• List S3 buckets: aws s3 ls
+• Sync local directory to an S3 bucket: aws s3 sync <local-path> s3://<bucket-name>
+• Describe VPCs in a region: aws ec2 describe-vpcs
+• List secrets from Secrets Manager: aws secretsmanager list-secrets
+
+
+
+5. Monitoring & Maintenance (CloudWatch, Lambda)
+
+Used to keep track of application health and run serverless operational scripts.
+• Tail CloudWatch logs for a specific group: aws logs filter-log-events --log-group-name <group-name>
+• Invoke a Lambda function directly: aws lambda invoke --function-name <func-name> output.txt
+• List active operational insights: aws devops-guru list-insights --status-filter ANY
